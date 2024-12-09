@@ -2,11 +2,16 @@
 
 import { useEffect } from 'react'; 
 
-export const MiroSDKInit = () => {
+export const MiroSDKInit = ({ fullscreen }) => {
     useEffect(() => {
-        miro.board.ui.on('icon:click', async () => {
-            await miro.board.ui.openPanel({ url: '/' }); 
-        }); 
+        if (miro.board.ui.canOpenModal()) {
+            miro.board.ui.openModal({
+                url: '/modal',
+                width: 500,
+                height: 500,
+                fullscreen: fullscreen,
+            }); 
+        }
     }); 
     
     return null; 

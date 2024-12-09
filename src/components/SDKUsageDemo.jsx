@@ -8,7 +8,8 @@ async function addSticky() {
 } 
 
 export const SDKUsageDemo = () => {
-    return ( <div> 
+    return ( 
+    <div> 
       <h3>SDK Usage Demo</h3> 
       <p className="p-small">SDK doesnt need to be authenticated.</p> 
       <p> 
