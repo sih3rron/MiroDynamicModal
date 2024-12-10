@@ -7,8 +7,8 @@ export const MiroSDKInit = ({ fullscreen }) => {
         if (miro.board.ui.canOpenModal()) {
             miro.board.ui.openModal({
                 url: '/modal',
-                width: 500,
-                height: 500,
+                width: 550,
+                height: 550,
                 fullscreen: fullscreen,
             }); 
         }

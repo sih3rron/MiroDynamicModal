@@ -1,14 +1,11 @@
-import DynamicModal from "../../components/dynamicModal/DynamicModal"
+import ModalBody from "../../components/dynamicModal/ModalBody"
+import modalCookie from "../../utils/helper"
 
-export default async function Page() {
-    return (
-        <div> 
-        <DynamicModal
-          title="Dynamic Modal"
-          body="This is a dynamic modal"
-          image="https://farm5.staticflickr.com/4404/36289482971_a3a77b523c.jpg"
-          cta={"Click me"}
-        />
-      </div> 
-    )
+export default function Page() {
+
+  return (
+    <>
+      <ModalBody />
+    </>
+  )
 }

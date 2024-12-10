@@ -1,10 +1,10 @@
 import React from 'react';
 import Script from 'next/script';
-
-import { SDKUsageDemo } from '../components/SDKUsageDemo';
 import { MiroSDKInit } from '../components/SDKInit';
+import '../app/globals.css'
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <body>
