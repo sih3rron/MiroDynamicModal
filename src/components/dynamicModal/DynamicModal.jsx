@@ -1,7 +1,8 @@
 'use client'
 
-import { useContext, createContext, useEffect } from 'react';
-import { getUserInfo } from '../../utils/helper';
+import { useContext, createContext } from 'react';
+import addMiroIdToDb, { addMiroIdToStorage, postUserId } from '../../utils/helper';
+
 
 const ModalContext = createContext();
 
@@ -22,27 +23,16 @@ export default function DynamicModal({
     paragraphTwo,
     linkOut,
     linkOutText,
-    buttonPosition,
-    cta
+    cta,
+    user
 }) {
 
-    useEffect(() => {
-        
-        async function getUserInfo() {
-            const userInfo = await miro.board.getUserInfo();
-            const userId = userInfo.id;
-            return { userId };
-        }
-
-        getUserInfo().then((data) => {
-            console.log(data);
-        });
-    });
+    
 
     return (
-        <ModalContext.Provider value={{ children, heading, imagePosition, image, paragraphOne, paragraphTwo, linkOut, linkOutText, buttonPosition, cta }}>
+        <ModalContext.Provider value={{ user, children, heading, imagePosition, image, paragraphOne, paragraphTwo, linkOut, linkOutText, cta }}>
             <div className='flex flex-col max-w-[500px] max-h-[500px] p-2'>
-                {children}
+                { children }
             </div>
         </ModalContext.Provider>
     )
@@ -102,14 +92,12 @@ DynamicModal.LinkOut = function DynamicModalLinkOut() {
 }
 
 DynamicModal.Button = function DynamicModalButton() {
-    const { buttonPosition, cta } = useModalContext(ModalContext);
+    const { cta, user } = useModalContext(ModalContext);
     return (
-        
-        
-            <div className={`flex flex-row w-full justify-${buttonPosition} items-${buttonPosition}`}>
-                <button type="button" className='button button-primary' onClick={(e) => console.log("I did a thing!")}>{cta}</button>
+        <div className='flex w-full'>
+            <div className={`flex flex-row w-full justify-end items-end`}>
+                <button type="button" className='button button-primary' onClick={()=> addMiroIdToDb(user)}>{ cta }</button>
             </div>
-
-
+        </div>
     )
 }

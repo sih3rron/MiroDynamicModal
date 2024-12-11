@@ -1,8 +1,26 @@
 'use client'
 
+import { useEffect, useState } from 'react';
 import DynamicModal from "./DynamicModal"
 
 export default function ModalBody() {
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+
+      async function getUserInfo() {
+          const userInfo = await miro.board.getUserInfo();
+          const userId = userInfo.id;
+          return { userId };
+      }
+
+      getUserInfo().then((data) => {
+          setUser(data.userId);
+      });
+
+  },[]);
+
 
 
 
@@ -16,8 +34,8 @@ export default function ModalBody() {
         paragraphTwo="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices, eros et venenatis pharetra, odio risus convallis lacus, eget pellentesque ex velit in risus."
         linkOut="https://www.google.com"
         linkOutText={"Google"}
-        buttonPosition={"end"}
         cta={"Close"}
+        user={ user }
         >
 
           <DynamicModal.ModalImage />

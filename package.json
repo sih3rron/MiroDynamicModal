@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@mirohq/miro-api": "^2.0.0",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.3",
     "cookie": "^1.0.2",
     "dotenv": "^16.0.3",
     "mirotone": "5",
