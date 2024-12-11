@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext, createContext } from 'react';
-import addMiroIdToDb, { addMiroIdToStorage, postUserId } from '../../utils/helper';
+import addMiroIdToDb, { addMiroIdToStorage } from '../../utils/helper';
 
 
 const ModalContext = createContext();
@@ -26,9 +26,7 @@ export default function DynamicModal({
     cta,
     user
 }) {
-
     
-
     return (
         <ModalContext.Provider value={{ user, children, heading, imagePosition, image, paragraphOne, paragraphTwo, linkOut, linkOutText, cta }}>
             <div className='flex flex-col max-w-[500px] max-h-[500px] p-2'>
@@ -91,12 +89,23 @@ DynamicModal.LinkOut = function DynamicModalLinkOut() {
     )
 }
 
-DynamicModal.Button = function DynamicModalButton() {
+DynamicModal.ButtonDb = function DynamicModalButtonDb() {
     const { cta, user } = useModalContext(ModalContext);
     return (
         <div className='flex w-full'>
             <div className={`flex flex-row w-full justify-end items-end`}>
                 <button type="button" className='button button-primary' onClick={()=> addMiroIdToDb(user)}>{ cta }</button>
+            </div>
+        </div>
+    )
+}
+
+DynamicModal.ButtonStorage = function DynamicModalButtonStorage() {
+    const { cta, user } = useModalContext(ModalContext);
+    return (
+        <div className='flex w-full'>
+            <div className={`flex flex-row w-full justify-end items-end`}>
+                <button type="button" className='button button-primary' onClick={()=> addMiroIdToStorage(user)}>{ cta }</button>
             </div>
         </div>
     )

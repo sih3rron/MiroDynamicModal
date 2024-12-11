@@ -12,6 +12,7 @@ export default function ModalBody() {
       async function getUserInfo() {
           const userInfo = await miro.board.getUserInfo();
           const userId = userInfo.id;
+          console.log("ModalBody - userId: ", userId);
           return { userId };
       }
 
@@ -43,7 +44,7 @@ export default function ModalBody() {
           <DynamicModal.ParagraphOne />
           <DynamicModal.ParagraphTwo />
           <DynamicModal.LinkOut />
-          <DynamicModal.Button />
+          <DynamicModal.ButtonDb />
 
         </DynamicModal >
     </>

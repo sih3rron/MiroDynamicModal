@@ -1,35 +1,64 @@
-export async function addMiroIdToStorage(userId){
-    if ( !window.localStorage.getItem('miroId')) { 
-        window.localStorage.setItem('miroId', userId);
+export async function addMiroIdToStorage(userId) {
+    if (!window.localStorage.getItem("miroId")) {
+        window.localStorage.setItem("miroId", userId);
     }
     return await miro.board.ui.closeModal("Modal Closed");
 }
 
-export default async function addMiroIdToDb(userId){
+export default async function addMiroIdToDb(userId) {
+
+    const idExists = await checkMiroIdExistsInDb(userId);
+    if (idExists) return console.error("Error: ", "ID already exists in DB");
+
     const post = await postUserId(userId);
+    if (!post.status == 200) return console.log("Error: ", post.status );
 
-    if (post.status === 200) { return await miro.board.ui.closeModal("Modal Closed")};
-    if (post.status === 500) { return console.log("Error: ", post.status)};
+    return await miro.board.ui.closeModal("Modal Closed");
+
 }
 
-export async function checkMiroIdExistsInDb(userId){
-    
-    return console.log("Success: ", userId);
-}
+export async function checkMiroIdExistsInDb(userId) {
 
-export async function postUserId(userId){
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/database/post-data`,
-    {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
+    const res = await fetch(
+        `/api/database/fetch-data`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
         },
-        body: userId,
-    });
+    );
 
-    console.log("UserID ", userId);
+    const data = await res.json();
 
-    return { status: res.status };
+    if(data.length == 0 || data[0].miroId !== userId) { 
+        return false; 
+    }
+    if(data[0].miroId == userId) { 
+        return true; 
+    }
+
 }
 
+export async function postUserId(userId) {
+    try {
+        const res = await fetch(
+            `/api/database/post-data`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ miroId: userId }),
+            },
+        );
+
+        return res.status;
+    } catch (ERROR) {
+        console.error("postUserId ERROR: ", ERROR);
+    }
+}
+
+export async function listenForModalClose() {
+    
+}

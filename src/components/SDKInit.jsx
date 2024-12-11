@@ -1,20 +1,27 @@
-'use client'; 
+'use client';
 
-import { useEffect } from 'react'; 
+import { useEffect } from 'react';
+import { checkMiroIdExistsInDb } from '../utils/helper';
 
 export const MiroSDKInit = ({ fullscreen }) => {
+    
     useEffect(() => {
 
-        if(!window.localStorage.getItem('miroId') && miro.board.ui.canOpenModal()) {
-                miro.board.ui.openModal({
-                    url: '/modal',
-                    width: 550,
-                    height: 550,
-                    fullscreen: fullscreen,
-                }); 
-        }
-        
-    }); 
-    
-    return null; 
+        const miroId = miro.board.getUserInfo().then((user) => {
+            checkMiroIdExistsInDb(user.id).then((res) => {
+                if (res == false) {
+                    if (!window.localStorage.getItem('miroId') && miro.board.ui.canOpenModal()) {
+                        miro.board.ui.openModal({
+                            url: '/modal',
+                            width: 550,
+                            height: 550,
+                            fullscreen: fullscreen,
+                        });
+                    }
+                }
+            });
+        });
+    });
+
+    return null;
 }; 
