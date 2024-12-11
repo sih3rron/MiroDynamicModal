@@ -35,7 +35,7 @@ export default function ModalBody() {
         paragraphTwo="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultrices, eros et venenatis pharetra, odio risus convallis lacus, eget pellentesque ex velit in risus."
         linkOut="https://www.google.com"
         linkOutText={"Google"}
-        cta={"Close"}
+        cta={"Accept"}
         user={ user }
         >
 
@@ -44,7 +44,7 @@ export default function ModalBody() {
           <DynamicModal.ParagraphOne />
           <DynamicModal.ParagraphTwo />
           <DynamicModal.LinkOut />
-          <DynamicModal.ButtonDb />
+          <DynamicModal.ButtonCookie />
 
         </DynamicModal >
     </>

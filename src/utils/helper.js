@@ -1,8 +1,15 @@
+import { createCookie } from "../app/action";
+
 export async function addMiroIdToStorage(userId) {
     if (!window.localStorage.getItem("miroId")) {
         window.localStorage.setItem("miroId", userId);
     }
-    return await miro.board.ui.closeModal("Modal Closed");
+    return await miro.board.ui.closeModal("added_to_storage");
+}
+
+export async function addMiroIdTo30DayCookie(userId) {
+
+    return await miro.board.ui.closeModal("added_to_cookie");
 }
 
 export default async function addMiroIdToDb(userId) {
@@ -13,7 +20,7 @@ export default async function addMiroIdToDb(userId) {
     const post = await postUserId(userId);
     if (!post.status == 200) return console.log("Error: ", post.status );
 
-    return await miro.board.ui.closeModal("Modal Closed");
+    return await miro.board.ui.closeModal("added_to_database");
 
 }
 
@@ -57,8 +64,4 @@ export async function postUserId(userId) {
     } catch (ERROR) {
         console.error("postUserId ERROR: ", ERROR);
     }
-}
-
-export async function listenForModalClose() {
-    
 }

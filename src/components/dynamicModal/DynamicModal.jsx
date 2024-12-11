@@ -1,7 +1,7 @@
 'use client'
 
-import { useContext, createContext } from 'react';
-import addMiroIdToDb, { addMiroIdToStorage } from '../../utils/helper';
+import { useContext, createContext, useEffect } from 'react';
+import addMiroIdToDb, { addMiroIdTo30DayCookie, addMiroIdToStorage } from '../../utils/helper';
 
 
 const ModalContext = createContext();
@@ -26,6 +26,13 @@ export default function DynamicModal({
     cta,
     user
 }) {
+
+    useEffect(() => {
+        window.parent.postMessage({
+            pluginMessage: { type: 'MODAL_OPEN' }
+            }, '*') // Send message to parent window    
+        }) // Send message to parent window
+
     
     return (
         <ModalContext.Provider value={{ user, children, heading, imagePosition, image, paragraphOne, paragraphTwo, linkOut, linkOutText, cta }}>
@@ -106,6 +113,17 @@ DynamicModal.ButtonStorage = function DynamicModalButtonStorage() {
         <div className='flex w-full'>
             <div className={`flex flex-row w-full justify-end items-end`}>
                 <button type="button" className='button button-primary' onClick={()=> addMiroIdToStorage(user)}>{ cta }</button>
+            </div>
+        </div>
+    )
+}
+
+DynamicModal.ButtonCookie = function DynamicModalButtonCookie() {
+    const { cta, user } = useModalContext(ModalContext);
+    return (
+        <div className='flex w-full'>
+            <div className={`flex flex-row w-full justify-end items-end`}>
+                <button type="button" className='button button-primary' onClick={()=> addMiroIdTo30DayCookie(user)}>{ cta }</button>
             </div>
         </div>
     )
