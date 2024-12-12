@@ -1,8 +1,9 @@
+import Form from "../components/FormConfig/Form";
 
 export default function Page() {
     return (
         <div>
-            <p>Page</p>
+            <Form />
         </div>
     )
 }

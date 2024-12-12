@@ -27,12 +27,6 @@ export default function DynamicModal({
     user
 }) {
 
-    useEffect(() => {
-        window.parent.postMessage({
-            pluginMessage: { type: 'MODAL_OPEN' }
-            }, '*') // Send message to parent window    
-        }) // Send message to parent window
-
     
     return (
         <ModalContext.Provider value={{ user, children, heading, imagePosition, image, paragraphOne, paragraphTwo, linkOut, linkOutText, cta }}>
