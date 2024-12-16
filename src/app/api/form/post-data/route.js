@@ -19,7 +19,7 @@ export async function POST(request) {
     };
 
     const res = await fetch(
-      `${process.env.SUPABASE_URL}/rest/v1/modal-ids`,
+      `${process.env.SUPABASE_URL}/rest/v1/form-schema`,
       options,
     );
 

@@ -12,19 +12,9 @@ export default function Form() {
     const [linkUrl, setLinkUrl] = useState('');
     const [linkText, setLinkText] = useState('');
     const [buttonCta, setButtonCta] = useState('');
-    const [storage, setStorage] = useState(null);
+    const [storage, setStorage] = useState('db');   
 
-    const formData = {
-        image: modalImage,
-        imagePosition: imagePosition,
-        heading: modalHeading,
-        paragraphOne: paragraphOne,
-        paragraphTwo: paragraphTwo,
-        link: linkUrl,
-        linkText: linkText,
-        buttonCta: buttonCta,
-        storage: storage,
-    };
+    
 
     const handleImageUpload = (event) => {
         setModalImage(event.target.files[0]);
@@ -32,47 +22,78 @@ export default function Form() {
 
     const handleImagePosition = (event) => {
         setImagePosition(event.target.value);
-        console.log("Image Position: ", event.target.value);
+        
     }
 
     const handleModalHeading = (event) => {
         setModalHeading(event.target.value);
-        console.log("Heading: ", event.target.value);
+        
     }
 
     const handleParagraphOne = (event) => {
         setParagraphOne(event.target.value);
-        console.log("P1: ", event.target.value);
+        
     }
 
     const handleParagraphTwo = (event) => {
         setParagraphTwo(event.target.value);
-        console.log("P2: ", event.target.value);
+        
     }
 
     const handleLinkUrl = (event) => {
         setLinkUrl(event.target.value);
-        console.log("Link: ", event.target.value);
+        
     }
 
     const handleLinkText = (event) => {
         setLinkText(event.target.value);
-        console.log("Link Text: ", event.target.value);
+        
     }
 
     const handleButtonCta = (event) => {
         setButtonCta(event.target.value);
-        console.log("Button CTA: ", event.target.value);
+        
     }
 
     const handleStorage = (event) => {
         setStorage(event.target.value);
-        console.log("Storage: ", event.target.value);
     }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        console.log("Form", formData);
+
+
+        try {
+        const formData = {
+            image: modalImage,
+            imagePosition: imagePosition,
+            heading: modalHeading,
+            paragraphOne: paragraphOne,
+            paragraphTwo: paragraphTwo,
+            link: linkUrl,
+            linkText: linkText,
+            buttonCta: buttonCta,
+            storage: storage,
+        };
+
+        console.log("Form Data: ", formData);
+
+        const sendFormData = await fetch('http://localhost:3000/api/form/post-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const response = await sendFormData.json();
+        console.log("Response: ", response);
+
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+
+
     }
 
 
